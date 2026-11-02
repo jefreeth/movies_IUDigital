@@ -6,6 +6,8 @@ const generoRoutes = require('./routes/generoRoutes.js')
 const directorRoutes = require('./routes/directorRoutes.js')
 const productoraRoutes = require('./routes/productoraRoutes.js')
 const tipoRoutes = require('./routes/tipoRoutes.js')
+const mediaRoutes = require('./routes/mediaRoutes.js')
+
 //aplicacion express
 const app = express();
 
@@ -21,6 +23,8 @@ app.use('/api/directores', directorRoutes)
 app.use('/api/productoras', productoraRoutes)
 //definimos rutas para tipos
 app.use('/api/tipos', tipoRoutes)
+//definimos rutas para media
+app.use('/api/medias', mediaRoutes)
 
 //ruta de prueba inicial
 app.get('/', (req, res) => {
