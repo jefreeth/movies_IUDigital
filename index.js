@@ -4,7 +4,7 @@ const cors = require('cors');
 require ('dotenv').config();
 const generoRoutes = require('./routes/generoRoutes.js')
 const directorRoutes = require('./routes/directorRoutes.js')
-
+const productoraRoutes = require('./routes/productoraRoutes.js')
 //aplicacion express
 const app = express();
 
@@ -14,8 +14,10 @@ app.use(cors());
 
 //definimos rutas para generos
 app.use('/api/generos', generoRoutes);
-//definimos ritas para director
+//definimos rutas para director
 app.use('/api/directores', directorRoutes)
+//definimos rutas para productora
+app.use('/api/productoras', productoraRoutes)
 
 //ruta de prueba inicial
 app.get('/', (req, res) => {

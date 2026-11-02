@@ -1,0 +1,46 @@
+//simulacion de base de datos
+let productoras = [
+    { 
+        id: 1, 
+        nombre: 'Warner Bros', 
+        estado: 'Activo', 
+        fechaCreacion: new Date(), 
+        fechaActualizacion: new Date(), 
+        slogan: 'Entreteniendo al mundo', 
+        descripcion: 'Estudio de cine y televisión estadounidense' 
+    }
+];
+
+//obtener productoras
+const obtenerProductoras = (req, res) => {
+    res.json(productoras);
+};
+
+//crear productora
+const crearProductora = (req, res) => {
+    const {nombre, estado, slogan, descripcion} = req.body;
+
+    const nuevaProductora = {
+        id: productoras.length + 1,
+        nombre,
+        estado: estado || 'Activo',
+        fechaCreacion: new Date(),
+        fechaActualizacion: new Date(),
+        slogan: slogan || '',
+        descripcion: descripcion || ''
+    };
+
+    productoras.push(nuevaProductora);
+        res.status(201).json({
+            mensaje: "productora creada con exito",
+            productora: nuevaProductora
+        }
+
+    )
+
+};
+
+module.exports = {
+    obtenerProductoras,
+    crearProductora
+};
