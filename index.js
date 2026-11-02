@@ -5,6 +5,7 @@ require ('dotenv').config();
 const generoRoutes = require('./routes/generoRoutes.js')
 const directorRoutes = require('./routes/directorRoutes.js')
 const productoraRoutes = require('./routes/productoraRoutes.js')
+const tipoRoutes = require('./routes/tipoRoutes.js')
 //aplicacion express
 const app = express();
 
@@ -18,6 +19,8 @@ app.use('/api/generos', generoRoutes);
 app.use('/api/directores', directorRoutes)
 //definimos rutas para productora
 app.use('/api/productoras', productoraRoutes)
+//definimos rutas para tipos
+app.use('/api/tipos', tipoRoutes)
 
 //ruta de prueba inicial
 app.get('/', (req, res) => {
