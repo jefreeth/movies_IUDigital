@@ -32,6 +32,6 @@ const crearDirector = (req, res) => {
 
 module.exports = {
     obtenerDirector,
-    crearDIrector
+    crearDirector
 }
 
