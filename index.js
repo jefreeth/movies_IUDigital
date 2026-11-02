@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 require ('dotenv').config();
 const generoRoutes = require('controllers/routes/generoRoute.js')
+const directorRoutes = require('controllers/routes/directorRoutes.js')
 
 //aplicacion express
 const app = express();
@@ -13,6 +14,8 @@ app.use(cors());
 
 //definimos rutas para generos
 app.use('/api/generos', generoRoutes);
+//definimos ritas para director
+app.use('/api/directores'. directorRoutes)
 
 //ruta de prueba inicial
 app.get('/', (req, res) => {
