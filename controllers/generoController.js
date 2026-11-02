@@ -9,7 +9,7 @@ let generos = [
 
 //obtener todos los generos
 const obtenerGeneros = (req, res) => {
-    res.jason(generos);
+    res.json(generos);
 };
 
 //crear un nuevo genero
@@ -26,7 +26,7 @@ const crearGenero = (req, res) => {
     };
 
     generos.push(nuevoGenero);
-    res.status(201).jason({
+    res.status(201).json({
         mensaje: 'genero guardado correctamente',
         genero: nuevoGenero
     });
