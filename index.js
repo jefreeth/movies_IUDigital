@@ -8,8 +8,13 @@ const productoraRoutes = require('./routes/productoraRoutes.js')
 const tipoRoutes = require('./routes/tipoRoutes.js')
 const mediaRoutes = require('./routes/mediaRoutes.js')
 
+const {dbConnection} = require('./database/config.js')
+
 //aplicacion express
 const app = express();
+
+//inicializar la conexion con la bd
+dbConnection();
 
 //configuraciones basicas 
 app.use(express.json());

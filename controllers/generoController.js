@@ -1,36 +1,39 @@
-//simulamos una bade de datos temporal en memoria
-let generos = [
-    { id: 1, nombre: 'Acción', estado: 'Activo', fechaCreacion: new Date(), fechaActualizacion: new Date(), descripcion: 'Películas de acción y adrenalina' },
-    { id: 2, nombre: 'Aventura', estado: 'Activo', fechaCreacion: new Date(), fechaActualizacion: new Date(), descripcion: 'Películas de exploración y viajes' },
-    { id: 3, nombre: 'Ciencia Ficción', estado: 'Activo', fechaCreacion: new Date(), fechaActualizacion: new Date(), descripcion: 'Tecnología, espacio y futuro' },
-    { id: 4, nombre: 'Drama', estado: 'Activo', fechaCreacion: new Date(), fechaActualizacion: new Date(), descripcion: 'Historias emotivas y profundas' },
-    { id: 5, nombre: 'Terror', estado: 'Activo', fechaCreacion: new Date(), fechaActualizacion: new Date(), descripcion: 'Sususto y miedo' }
-];
+const genero = require('../models/genero');
 
 //obtener todos los generos
-const obtenerGeneros = (req, res) => {
-    res.json(generos);
+const obtenerGeneros = async (req, res) => {
+    try {
+        const generos = await genero.find();
+        res.json(generos);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            mensaje: 'error al obtener generos'
+        });
+    }
 };
 
 //crear un nuevo genero
-const crearGenero = (req, res) => {
+const crearGenero = async (req, res) => {
     const {nombre, estado, descripcion } = req.body;
 
-    const nuevoGenero = {
-        id: generos.length + 1,
-        nombre,
-        estado: estado || 'Activo',
-        fechaCreacion: new Date(),
-        fechaActualizacion: new Date(),
-        descripcion: descripcion || ''
-    };
+    try {
+        //creamos una instancia del modelo con los datoa de petecion
+        const genero = new generos({nombre, estado, descripcion})
+        
+        //guardamos en la base de datos
+        await genero.save();
 
-    generos.push(nuevoGenero);
-    res.status(201).json({
-        mensaje: 'genero guardado correctamente',
-        genero: nuevoGenero
-    });
+        res.status(200).json({
+            mensaje: 'genero guardado correctamente', genero
+        });
 
+    }catch (error){
+        console.log(error);
+        res.status(500).json({
+            mensaje: 'error el guardar genero'
+        });
+    };    
 };
 
 module.exports = {
