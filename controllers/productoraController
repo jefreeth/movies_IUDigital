@@ -1,42 +1,37 @@
-//simulacion de base de datos
-let productoras = [
-    { 
-        id: 1, 
-        nombre: 'Warner Bros', 
-        estado: 'Activo', 
-        fechaCreacion: new Date(), 
-        fechaActualizacion: new Date(), 
-        slogan: 'Entreteniendo al mundo', 
-        descripcion: 'Estudio de cine y televisión estadounidense' 
-    }
-];
+const productoras = require('../models/productora')
 
 //obtener productoras
-const obtenerProductoras = (req, res) => {
-    res.json(productoras);
+const obtenerProductoras = async (req, res) => {
+    try {
+        const productora = await productoras.find();
+        res.json(productora); 
+    }catch (error){
+        console.log(error)
+        res.status(500).json({
+            mensaje: 'error al obtener las productoras'
+        });
+    }
 };
 
 //crear productora
-const crearProductora = (req, res) => {
+const crearProductora = async (req, res) => {
     const {nombre, estado, slogan, descripcion} = req.body;
 
-    const nuevaProductora = {
-        id: productoras.length + 1,
-        nombre,
-        estado: estado || 'Activo',
-        fechaCreacion: new Date(),
-        fechaActualizacion: new Date(),
-        slogan: slogan || '',
-        descripcion: descripcion || ''
+    try {
+        const productora = new productoras ({nombre, estado, slogan, descripcion})
+
+        //guaradamos en la base de datos
+        await productora.save()
+
+        res.status(200).json({
+            mensaje: 'productora guardada correctamente'
+        });
+    }catch (error){
+        console.log(error)
+        res.status(500).json({
+            mensaje: 'error al guardar las productoras'
+        });
     };
-
-    productoras.push(nuevaProductora);
-        res.status(201).json({
-            mensaje: "productora creada con exito",
-            productora: nuevaProductora
-        }
-
-    )
 
 };
 

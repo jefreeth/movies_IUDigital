@@ -4,6 +4,6 @@ const {obtenerProductoras, crearProductora} = require('../controllers/productora
 const router = Router();
 
 router.get('/', obtenerProductoras);
-router.get('/', crearProductora);
+router.post('/', crearProductora);
 
 module.exports = router;
