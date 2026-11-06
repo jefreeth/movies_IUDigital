@@ -1,37 +1,42 @@
-// base de datos simulada
-let directores = [
-    { id: 1, nombres: 'Christopher Nolan', estado: 'Activo', fechaCreacion: new Date(), fechaActualizacion: new Date() },
-    { id: 2, nombres: 'Steven Spielberg', estado: 'Activo', fechaCreacion: new Date(), fechaActualizacion: new Date() }
-];
-
+const director = require('../models/director');
 
 //obtemer los directores
-const obtenerDirector = (req, res) => {
-    res.json(directores)
+const obtenerDirector = async (req, res) => {
+    try {
+        const directores = await director.find();
+        res.json(directores)
+    } catch (error) {
+        console.log(eror);
+        res.status(500).json({
+            mensaje: 'error al obtener los directores'
+        });
+    }
 }
 
 //crear un nuevo director
-const crearDirector = (req, res) => {
-    const {nombres, estado} = req.body;
+const crearDirector = async (req, res) => {
+    const {nombre} = req.body;
 
-    const nuevoDirector = {
-        id: directores.length +1,
-        nombres,
-        estado: estado || 'Activo',
-        fechaCreacion: new Date(),
-        fechaActualizacion: new Date()
+    try{
+        //creamos una nueva instancia del modelo
+        const directores = new director({nombre})
+
+        //guardamos en la base de datos
+        await directores.save()
+
+        res.status(200).json({
+            mensaje:'director creado correctamente', director
+        })
+
+    }catch (error){
+        console.log(error);
+        res.status(500).json({
+            mensaje: 'error al crear director'
+        });
     };
-
-    directores.push(nuevoDirector);
-    res.status(201).json({
-        mensaje: "director creado con exito",
-        director: nuevoDirector
-    });
-    
 };
 
 module.exports = {
     obtenerDirector,
     crearDirector
-}
-
+};

@@ -4,7 +4,7 @@ const {obtenerDirector, crearDirector} = require('../controllers/directorControl
 const router = Router();
 
 router.get('/', obtenerDirector);
-router.get('/', crearDirector);
+router.post('/', crearDirector);
 
 module.exports = router
 
