@@ -1,54 +1,43 @@
-const { crearTipo } = require("./tipoController");
-
-let medias = [
-    {
-        id: 1,
-        serial: 'PEL-001',
-        titulo: 'Inception',
-        sinopsis: 'Un ladrón que roba secretos corporativos a través del uso de la tecnología de intercambio de sueños.',
-        url: 'https://ejemplo.com/inception',
-        fotoPortada: 'https://ejemplo.com/portada-inception.jpg',
-        anoEstreno: 2010,
-        fechaCreacion: new Date(),
-        fechaActualizacion: new Date(),
-        genero: { id: 3, nombre: 'Ciencia Ficción' },
-        director: { id: 1, nombres: 'Christopher Nolan' },
-        productora: { id: 1, nombre: 'Warner Bros' },
-        tipo: { id: 1, nombre: 'Película' }
-    }
-];
+const media = require('../models/media')
 
 //obtemer medias
-const obtenerMedias = (req, res) => {
-    res.json(medias);
+const obtenerMedias = async (req, res) => {
+    try {
+        const medias = await media.find()
+            .populate('generoPrincipal')
+            .populate('director')
+            .populate('productora')
+            .populate('tipo')
+            
+        res.json(medias);
+    }catch (error){
+        console.log(error);
+        res.status(500).json({
+            mensaje: 'error al obtener las medias', error
+        });
+    }
 };
 
 //crear nueva medias
-const crearMedia = (req, res) => {
-    const {serial, titulo, sinopsis, url, fotoPortada, anoEstreno, genero, director, productora, tipo} = req.body;
+const crearMedia = async (req, res) => {
+    const {serial, titulo, sipnosis, url, fotoPortada, anoEstreno, genero, director, productora, tipo} = req.body;
 
-    const nuevaMedia = {
-    id: medias.length + 1,
-        serial,
-        titulo,
-        sinopsis,
-        url,
-        fotoPortada,
-        anoEstreno,
-        fechaCreacion: new Date(),
-        fechaActualizacion: new Date(),
-        genero,
-        director,
-        productora,
-        tipo
+    try {
+        const medias= new media(req.body)
+
+        //guardamos en la base de datos
+        await medias.save();
+
+        res.status(200).json({
+            mensaje: 'media creada correctamente', media
+        });
+
+    }catch (error){
+        console.log(error);
+        res.status(500).json({
+            mensaje:'error al crear media', error
+        });
     };
-
-    medias.push(nuevaMedia);
-    res.status(201).json({
-    mensaje: "media registrada con exito",
-    media: nuevaMedia
-    });
-
 };
 
 module.exports = {
