@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const dbConnection = async () => {
     try {
-        await mongoose.connect('mongodb+srv://jefreetamayo_db_user:M6czmKffo2A1BL8H@cluster0.aa2psf2.mongodb.net/');
+        await mongoose.connect(process.env.DB_CNN);
 
         console.log('base de datos conectada a mongoDB atlas exitosamente');
     }catch (error){
