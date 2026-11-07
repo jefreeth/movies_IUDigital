@@ -14,11 +14,11 @@ const prodcutoraSchema = Schema ({
     },
     slogan: {
         type: String,
-        default: ''
+        default: [true, 'slogan obligatorio']
     },
     descripcion: {
         type: String,
-        default: ''
+        default: [true, 'descripcion obligatoria']
     },
     fechaCreacion: {
         type: Date,

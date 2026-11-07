@@ -24,7 +24,7 @@ const crearProductora = async (req, res) => {
         await productora.save()
 
         res.status(200).json({
-            mensaje: 'productora guardada correctamente'
+            mensaje: 'productora guardada correctamente', productora
         });
     }catch (error){
         console.log(error)

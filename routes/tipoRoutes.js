@@ -4,6 +4,6 @@ const {obtenerTipos, crearTipo} = require('../controllers/tipoController')
 const router = Router();
 
 router.get('/', obtenerTipos);
-router.get('/', crearTipo);
+router.post('/', crearTipo);
 
 module.exports = router;

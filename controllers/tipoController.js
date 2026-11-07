@@ -1,32 +1,46 @@
-//simulamos base de datos
-let tipos = [
-    { id: 1, nombre: 'Película', fechaCreacion: new Date(), fechaActualizacion: new Date(), descripcion: 'Largometraje audiovisual' },
-    { id: 2, nombre: 'Serie', fechaCreacion: new Date(), fechaActualizacion: new Date(), descripcion: 'Producción audiovisual por episodios' }
-];
+const tipo = require('../models/tipo')
 
-//obtener tipos
-const obtenerTipos = (req, res) => {
-    res.json(tipos);
+//obtener los tipos
+const obtenerTipos = async (req, res) => {
+    try {
+        const tipos = await tipo.find();
+
+        res.status(200).json(tipos);
+
+    }catch (error){
+        console.log (error);
+        res.status(500).json({
+            mensaje:'error al obtener los tipos'
+        });
+    }
 };
 
-//creat nuevo tipo
-const crearTipo = (req, res) => {
-    const {nombre, descripcion} = req.body;
+//crear los tipos
+const crearTipo = async (req, res) => {
+    try {
+        const tipos = [{
+            nombre: 'pelicula',
+            descripcion: 'contenido cinematrografico'
+        },
+        {
+            nombre: 'serie',
+            descripcion: 'contenido organizado por capitulos'
+        }    
+    ];
 
-    const nuevoTipo = {
-        id: tipos.length + 1,
-        nombre,
-        fechaCreacion: new Date(),
-        fechaActualizacion: new Date(),
-        descripcion: descripcion || ''
-    };
+    const resultado = await tipo.insertMany(tipos);
 
-    tipos.push(nuevoTipo);
-    res.status(201).json({
-        mensaje: "el tipo creado con exito",
-        tipo: nuevoTipo
+    res.status(200).json({
+        mensaje:'tipos creado correctamente', tipos: resultado
     });
-};
+
+    }catch (error) {
+        console.log(error);
+        res.status(500).json({
+            meensaje:'error al crear los tipos', error
+        })
+    }
+}
 
 module.exports = {
     obtenerTipos,
