@@ -39,9 +39,57 @@ const crearMedia = async (req, res) => {
         });
     };
 };
+//actualizar media
+const actualizarMedia = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const datosActualizados = req.body;
+
+        const mediaActualizada = await media.findByIdAndUpdate(id, datosActualizados, {returnDocument: 'after'});
+
+        if (!mediaActualizada){
+            return res.status(400).json({
+                mensaje: 'media no encontrada'
+            });
+        }
+        res.status(200).json({
+            mensaje: 'media actualizada correctamente'
+        });
+
+    }catch (error){
+        console.log(error);
+        res.status(500).json({
+            mensaje: 'error al actualizar la media'
+        });
+    }
+};
+//eliminar media
+const eliminarMedia = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const mediaEliminada = await media.findByIdAndDelete(id);
+
+        if (!mediaEliminada){
+            return res.status(400).json({
+                mensaje: 'media no encontrada'
+            });
+        }
+        res.status(200).json({
+            mensaje: 'media eliminada correctamente'
+        });
+
+    }catch (error){
+        console.log(error);
+        res.status(500).json({
+            mensaje: 'error al eliminar media'
+        });
+    }
+};
 
 module.exports = {
     obtenerMedias,
-    crearMedia
+    crearMedia,
+    actualizarMedia,
+    eliminarMedia
 }
 
