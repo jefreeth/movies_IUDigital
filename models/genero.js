@@ -3,7 +3,7 @@ const {Schema, model} = require('mongoose');
 const generoShema = Schema({
     nombre: {
         type: String,
-        required: [true, 'nombre obligatorio'],
+        required: [true, 'nombre del genero'],
         unique: true
     },
     estado:{

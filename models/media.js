@@ -3,49 +3,49 @@ const {Schema, model} = require('mongoose')
 const mediaSchema = Schema({
     serial: {
         type: String,
-        required:[true, 'el serial obligatorio'],
+        required:[true, 'serial unico'],
         unique:true
     },
     titulo: {
         type:String,
-        required:[true, 'titulo obligatorio']
+        required:[true, 'titulo']
     },
     sipnosis: {
         type: String,
-        required:[true, 'sipnosis obligatoria']
+        required:[true, 'sipnosis']
     },
     urlPelicula:{
         type:String,
-        required: [true, 'url obligatoria'],
+        required: [true, 'url'],
         unique: true
     },
     imagenPortada:{
         type:String,
-        required: [true, 'iamgen obligatoria']
+        required: [true, 'imagen de portada']
     },
-    anoEstreno:{
+    anioEstreno:{
         type: Number,
-        required: [true, 'ano obligatorio']
+        required: [true, 'anio de estreno']
     },
     generoPrincipal:{
         type: Schema.Types.ObjectId,
         ref: 'genero',
-        required: [true, 'genero obligatorio']
+        required: [true, 'genero principal']
     },
     director: {
         type: Schema.Types.ObjectId,
         ref: 'director',
-        required:[true, 'director obligatorio']
+        required:[true, 'director']
     },
     productora: {
         type: Schema.Types.ObjectId,
         ref: 'productoras',
-        required: [true, 'productora obligatoria']
+        required: [true, 'productora']
     },
     tipo: {
         type: Schema.Types.ObjectId,
         ref: 'tipo',
-        required: [true, 'tipo obligatorio']
+        required: [true, 'tipo']
     },
     fechaCreacion: {
         type: Date,

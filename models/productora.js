@@ -3,7 +3,7 @@ const {Schema, model} = require('mongoose')
 const productoraSchema = Schema ({
     nombre: {
         type: String,
-        required: [true, 'nombre obligatorio'],
+        required: [true, 'nombre de la productora'],
         unique: true
     },
     estado: {
@@ -14,7 +14,7 @@ const productoraSchema = Schema ({
     },
     slogan: {
         type: String,
-        default: [true, 'slogan obligatorio']
+        default: [true, 'Slogan']
     },
     descripcion: {
         type: String,

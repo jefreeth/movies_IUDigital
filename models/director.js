@@ -3,7 +3,7 @@ const {Schema, model} = require('mongoose');
 const directorSchema = Schema ({
     nombre:{
         type: String,
-        required:[true, 'nombre obligatorio']
+        required:[true, 'nombre del director']
     },
     estado: {
         type: String,
