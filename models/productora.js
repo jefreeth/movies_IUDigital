@@ -18,7 +18,7 @@ const productoraSchema = Schema ({
     },
     descripcion: {
         type: String,
-        default: [true, 'descripcion obligatoria']
+        default: [true, 'descripcion']
     },
     fechaCreacion: {
         type: Date,
