@@ -19,7 +19,7 @@ dbConnection();
 //configuraciones basicas 
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:5173'
+    origin: process.env.CORS
 }));
 
 //definimos rutas para generos
@@ -35,7 +35,7 @@ app.use('/api/medias', mediaRoutes)
 
 //ruta de prueba inicial
 app.get('/', (req, res) => {
-    res.json({mensaje: 'biemvenido alk API  de peliculas de la IUDigital' });
+    res.json({mensaje: 'biemvenido al API  de peliculas de la IUDigital' });
 });
 
 //definir el puerto del servidor

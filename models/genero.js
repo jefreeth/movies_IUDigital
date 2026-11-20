@@ -14,7 +14,7 @@ const generoShema = Schema({
     },
     descripcion: {
         type: String,
-        default: ''
+        default: [true, 'descripcion']
     },
     fechaCreacion: {
         type: Date,
